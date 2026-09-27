@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Database / SQLite / Temp
+*.sqlite3
+*.db
+
+# Alembic
+alembic/versions/*.pyc
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Storage / Uploads (Phase 4)
+storage/
+storage/documents/
+storage/chroma/
+*.pdf
+*.pptx
+*.ppt
