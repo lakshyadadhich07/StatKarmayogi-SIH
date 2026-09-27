@@ -66,7 +66,7 @@ class LLMService:
             "Do NOT extrapolate, assume, or inject external knowledge outside the provided context. If a fact cannot be established "
             "from the context, do not create a question about it.\n"
             "2. EXPLICIT SOURCE CHUNK ATTRIBUTION: Every question MUST be derived from one of the provided chunks. "
-            "You MUST populate `source_chunk_id` with the exact integer ID from the `[CHUNK ID: X, PAGE: Y]` header of that chunk.\n"
+            "Each question object MUST include `source_chunk_id` as the exact integer ID from the `[CHUNK ID: X, PAGE: Y]` header of that chunk.\n"
             "3. QUESTION INTEGRITY:\n"
             "   - The question text must be unambiguous and end with a question mark ('?').\n"
             "   - Provide exactly 4 distinct, non-empty options: option_a, option_b, option_c, option_d.\n"
@@ -119,7 +119,7 @@ class LLMService:
             "=== GENERATION CONSTRAINTS ===\n"
             f"{constraints_str}\n\n"
             "Generate the requested MCQs based exclusively on the facts stated in the chunks above. "
-            "For each question, ensure `source_chunk_id` is set to the exact integer CHUNK ID corresponding to the chunk used."
+            "For each question, ensure the question object includes `source_chunk_id` set to the exact integer CHUNK ID corresponding to the chunk used."
         )
 
     @classmethod

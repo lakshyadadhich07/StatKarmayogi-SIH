@@ -8,6 +8,10 @@ from app.models.enums import QuestionDifficulty, QuestionStatus, ReviewAction
 class MCQGenerationItem(BaseModel):
     """Schema enforced on Mistral LLM structured output for a single MCQ item."""
 
+    source_chunk_id: int = Field(
+        ...,
+        description="The exact integer CHUNK ID number from which this question was derived, matching one of the provided chunks in context.",
+    )
     question_text: str = Field(
         ...,
         description="The multiple choice question prompt, ending with a question mark.",
@@ -27,10 +31,6 @@ class MCQGenerationItem(BaseModel):
     explanation: str = Field(
         ...,
         description="Educational explanation justifying the correct answer using facts from the source text.",
-    )
-    source_chunk_id: int = Field(
-        ...,
-        description="The exact CHUNK ID number from which this question was derived, matching one of the provided chunks in context.",
     )
 
 
