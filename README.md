@@ -1,16 +1,24 @@
-# React + Vite
+# StatKarmayogi Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+StatKarmayogi is an AI-driven competency mapping and learning platform.
 
-Currently, two official plugins are available:
+## Directory Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `frontend/`: React + Vite frontend application.
+- `backend/`: FastAPI + Alembic backend service.
 
-## React Compiler
+## Running the Application
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+```bash
+cd frontend
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+### Backend
+```bash
+cd backend
+# Activate virtual environment and start server
+.\start_backend.ps1  # or uvicorn app.main:app --reload
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.

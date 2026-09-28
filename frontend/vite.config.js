@@ -8,4 +8,8 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  server: {
+    port: 3000,
+    strictPort: true, // fail if port 3000 is already occupied so CORS isn't silently broken
+  },
 })

@@ -27,8 +27,8 @@ def upgrade() -> None:
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('category', sa.String(length=100), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_competencies_code'), 'competencies', ['code'], unique=True)
@@ -45,8 +45,8 @@ def upgrade() -> None:
     sa.Column('is_public', sa.Boolean(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('source', sa.String(length=100), nullable=True),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_courses_igot_course_id'), 'courses', ['igot_course_id'], unique=True)
@@ -61,7 +61,7 @@ def upgrade() -> None:
     sa.Column('course_id', sa.Integer(), nullable=False),
     sa.Column('competency_id', sa.Integer(), nullable=False),
     sa.Column('relevance_score', sa.Numeric(precision=3, scale=2), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['competency_id'], ['competencies.id'], ondelete='RESTRICT'),
     sa.ForeignKeyConstraint(['course_id'], ['courses.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
@@ -78,8 +78,8 @@ def upgrade() -> None:
     sa.Column('department', sa.String(length=255), nullable=True),
     sa.Column('designation', sa.String(length=255), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id')
     )
@@ -93,7 +93,7 @@ def upgrade() -> None:
     sa.Column('total_questions', sa.Integer(), nullable=False),
     sa.Column('total_correct', sa.Integer(), nullable=False),
     sa.Column('score_percentage', sa.Numeric(precision=5, scale=2), nullable=False),
-    sa.Column('started_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('started_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.Column('completed_at', sa.DateTime(timezone=True), nullable=True),
     sa.ForeignKeyConstraint(['officer_id'], ['users.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id')
@@ -109,8 +109,8 @@ def upgrade() -> None:
     sa.Column('status', sa.Enum('UPLOADED', 'PROCESSING', 'PROCESSED', 'FAILED', name='document_status_enum'), nullable=False),
     sa.Column('processing_error', sa.Text(), nullable=True),
     sa.Column('generation_count', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['uploaded_by'], ['users.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id')
     )
@@ -124,7 +124,7 @@ def upgrade() -> None:
     sa.Column('questions_correct', sa.Integer(), nullable=False),
     sa.Column('score_percentage', sa.Numeric(precision=5, scale=2), nullable=False),
     sa.Column('proficiency_level', sa.Enum('BEGINNER', 'DEVELOPING', 'PROFICIENT', 'ADVANCED', name='proficiency_level_enum'), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['assessment_id'], ['assessments.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['competency_id'], ['competencies.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id'),
@@ -139,7 +139,7 @@ def upgrade() -> None:
     sa.Column('page_number', sa.Integer(), nullable=True),
     sa.Column('content_hash', sa.String(length=64), nullable=True),
     sa.Column('chroma_id', sa.String(length=255), nullable=True),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['document_id'], ['documents.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('document_id', 'chunk_index', name='uq_document_chunk_index')
@@ -157,7 +157,7 @@ def upgrade() -> None:
     sa.Column('match_score', sa.Numeric(precision=5, scale=2), nullable=False),
     sa.Column('reason', sa.Text(), nullable=False),
     sa.Column('status', sa.Enum('RECOMMENDED', 'STARTED', 'COMPLETED', 'DISMISSED', name='recommendation_status_enum'), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['assessment_id'], ['assessments.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['competency_id'], ['competencies.id'], ondelete='RESTRICT'),
     sa.ForeignKeyConstraint(['course_id'], ['courses.id'], ondelete='RESTRICT'),
@@ -175,7 +175,7 @@ def upgrade() -> None:
     sa.Column('competency_id', sa.Integer(), nullable=False),
     sa.Column('score_percentage', sa.Numeric(precision=5, scale=2), nullable=False),
     sa.Column('gap_level', sa.Enum('HIGH', 'MEDIUM', 'LOW', name='gap_level_enum'), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['assessment_id'], ['assessments.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['competency_id'], ['competencies.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id'),
@@ -200,8 +200,8 @@ def upgrade() -> None:
     sa.Column('generation_model', sa.String(length=100), nullable=True),
     sa.Column('status', sa.Enum('PENDING_REVIEW', 'APPROVED', 'REJECTED', name='question_status_enum'), nullable=False),
     sa.Column('created_by', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['competency_id'], ['competencies.id'], ondelete='RESTRICT'),
     sa.ForeignKeyConstraint(['created_by'], ['users.id'], ondelete='RESTRICT'),
     sa.ForeignKeyConstraint(['document_id'], ['documents.id'], ondelete='RESTRICT'),
@@ -220,7 +220,7 @@ def upgrade() -> None:
     sa.Column('question_id', sa.Integer(), nullable=False),
     sa.Column('selected_option', sa.String(length=1), nullable=False),
     sa.Column('is_correct', sa.Boolean(), nullable=False),
-    sa.Column('answered_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('answered_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['assessment_id'], ['assessments.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['question_id'], ['questions.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id'),
@@ -247,7 +247,7 @@ def upgrade() -> None:
     sa.Column('reviewer_id', sa.Integer(), nullable=False),
     sa.Column('action', sa.Enum('APPROVE', 'REJECT', name='review_action_enum'), nullable=False),
     sa.Column('comment', sa.Text(), nullable=True),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.ForeignKeyConstraint(['question_id'], ['questions.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['reviewer_id'], ['users.id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('id')
