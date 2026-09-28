@@ -5,7 +5,8 @@
  *           for persistence across refresh (acknowledged: not production-secure).
  */
 
-const BASE_URL = 'http://127.0.0.1:8000/api/v1';
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1').replace(/\/+$/, '');
+const API_ORIGIN = BASE_URL.replace(/\/api\/v1$/, '');
 
 // In-memory token store (primary). localStorage used for refresh persistence.
 let _token = localStorage.getItem('sk_token') || null;
@@ -94,7 +95,7 @@ async function apiFetch(path, options = {}) {
 // Health
 // ─────────────────────────────────────────────────────────────────────────────
 export const api = {
-  health: () => fetch('http://127.0.0.1:8000/health').then(r => r.json()),
+  health: () => fetch(`${API_ORIGIN}/health`).then(r => r.json()),
 
   // ─── Auth ───────────────────────────────────────────────────────────────
   auth: {
